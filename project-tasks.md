@@ -19,3 +19,12 @@ Screenshot of a successful health check
 
 
 ![Terraform apply](img/fix-hello-world-dep.png)
+
+
+## Step 2: Canary Deployments
+
+
+
+````
+for i in $(seq 1 20); do curl  172.20.191.186; done > canary.txt 
+````
