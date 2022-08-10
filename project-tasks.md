@@ -98,3 +98,21 @@ List all pods in all namespaces
 
 
     kubectl get pods --all-namespaces > node-elasticity.txt
+
+## Step 5: Observability with Metrics
+
+Apply the `metrics-server.yml` configuration 
+
+    kubectl apply -f metrics-server.yml
+
+Get the list of pods sorted by memory 
+
+    kubectl top po --all-namespaces --sort-by=memory
+
+![before](img/before.png)
+
+After deleting the service with the most memory usage from the cluster
+   
+    kubectl delete -f cluster_autoscale.yml       
+    kubectl top po --all-namespaces --sort-by=memory
+![after](img/after.png)
