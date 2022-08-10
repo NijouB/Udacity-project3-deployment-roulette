@@ -18,7 +18,7 @@ Screenshot of a successful health check
 ```
 
 
-![Terraform apply](img/fix-hello-world-dep.png)
+![Fix Deployment](img/fix-hello-world-dep.png)
 
 
 ## Step 2: Canary Deployments
@@ -28,3 +28,13 @@ Screenshot of a successful health check
 ````
 for i in $(seq 1 20); do curl  172.20.191.186; done > canary.txt 
 ````
+
+## Step 3: Blue-green Deployments
+
+Using the `curl ec2` instance to curl the `blue-green.udacityproject` URL
+
+![blue-green](img/green-blue.png)
+
+Commented the resource block creating the record for blue deployment and run `terraform apply`
+
+![green-only](img/green-only.png)
