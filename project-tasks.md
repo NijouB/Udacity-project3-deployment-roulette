@@ -49,16 +49,52 @@ Deploy `apps/bloatware` microservice via `kubectl apply -f bloatware.yml `
 The reason why the deployment failed is `0/2 nodes are available: 2 Insufficient cpu.`
 ![unsuccessful-deployment](img/unsuccessful-deployment.png)
 
+Delete the deployment and implement scaling automation
 ### Resolution steps
 
 Edit `eks.tf` 
 
 ````
-  nodes_desired_size = 3
-  nodes_max_size     = 4
+  nodes_desired_size = 2
+  nodes_max_size     = 10
   nodes_min_size     = 1
 ````
 
 Run `terraform apply` 
 
-![resolution step](img/resolution-step.png)
+Setup OIDC provider
+
+
+   eksctl utils associate-iam-oidc-provider \
+   --cluster udacity-cluster \
+   --approve \
+   --region=us-east-2
+
+
+Create a cluster serviceaccount with IAM permissions.
+
+       eksctl create iamserviceaccount \
+       --name cluster-autoscaler \
+       --namespace kube-system \
+       --cluster udacity-cluster \
+       --attach-policy-arn "arn:aws:iam::434616981467:policy/udacity-k8s-autoscale" \
+       --approve \
+       --override-existing-serviceaccounts \
+       --region=us-east-2
+
+    
+Run `cluster_autoscale.yml` configuration
+
+
+    kubectl apply -f cluster_autoscale.yml
+
+Redeploy the eploy `apps/bloatware` microservice
+
+
+    kubectl apply -f bloatware.yml 
+
+
+List all pods in all namespaces
+
+
+    kubectl get pods --all-namespaces > node-elasticity.txt
