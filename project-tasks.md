@@ -38,3 +38,27 @@ Using the `curl ec2` instance to curl the `blue-green.udacityproject` URL
 Commented the resource block creating the record for blue deployment and run `terraform apply`
 
 ![green-only](img/green-only.png)
+
+## Step 4: Node Elasticity
+
+Deploy `apps/bloatware` microservice via `kubectl apply -f bloatware.yml `
+
+
+### Screenshot of unsuccessful deployment 
+
+The reason why the deployment failed is `0/2 nodes are available: 2 Insufficient cpu.`
+![unsuccessful-deployment](img/unsuccessful-deployment.png)
+
+### Resolution steps
+
+Edit `eks.tf` 
+
+````
+  nodes_desired_size = 3
+  nodes_max_size     = 4
+  nodes_min_size     = 1
+````
+
+Run `terraform apply` 
+
+![resolution step](img/resolution-step.png)
