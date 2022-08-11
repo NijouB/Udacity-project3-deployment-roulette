@@ -116,3 +116,7 @@ After deleting the service with the most memory usage from the cluster
     kubectl delete -f cluster_autoscale.yml       
     kubectl top po --all-namespaces --sort-by=memory
 ![after](img/after.png)
+
+## Step 6: Diagramming the Cloud Landscape
+
+![deployment-roulette-architecture](img/deployment-roulette-architecture.png)
