@@ -69,10 +69,10 @@ Run `terraform apply`
 Setup OIDC provider
 
 
-   eksctl utils associate-iam-oidc-provider \
-   --cluster udacity-cluster \
-   --approve \
-   --region=us-east-2
+        eksctl utils associate-iam-oidc-provider \
+        --cluster udacity-cluster \
+        --approve \
+        --region=us-east-2
 
 
 Create a cluster serviceaccount with IAM permissions.
@@ -111,14 +111,15 @@ Apply the `metrics-server.yml` configuration
 
 Get the list of pods sorted by memory 
 
-    kubectl top po --all-namespaces --sort-by=memory
+    kubectl top po --sort-by=memory
 
 ![before](img/before.png)
 
 After deleting the service with the most memory usage from the cluster
    
-    kubectl delete -f cluster_autoscale.yml       
-    kubectl top po --all-namespaces --sort-by=memory
+    kubectl delete deploy hello-world    
+    kubectl top po --sort-by=memory
+
 ![after](img/after.png)
 
 ## Step 6: Diagramming the Cloud Landscape
