@@ -9,12 +9,16 @@
 
 The `apps/hello-world` deployment is facing deployment issues as the health check was miconfigured 
 
+Screenshot of a pod log, illustrating the output of the command `kubectl logs hello-world-d696c5567-bcn6g`
+
+![faulty health-check path configured](img/faulty-health-check-path-configured.png)
+
 
 Screenshot of a successful health check 
 
 
 ```
- kubectl logs hello-world-698dfc7f8-2cqv2
+  kubectl logs hello-world-794458d64d-24w8d
 ```
 
 
